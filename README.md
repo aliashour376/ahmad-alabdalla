@@ -1,6 +1,6 @@
-# Ahmad Al Abdalla Premium Concept
+# Ahmad Al Abdalla
 
-Premium Lebanon-first redesign concept for Ahmad Al Abdalla.
+Lebanon-first website for Ahmad Al Abdalla.
 
 ## Commands
 
