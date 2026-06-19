@@ -575,17 +575,19 @@ export function App() {
             {filteredBranches.length ? (
               filteredBranches.map((branch) => (
                 <article key={`${branch.name}-${branch.region}`}>
-                  <MapPin size={18} />
-                  <div>
+                  <MapPin className="branch-pin" size={18} />
+                  <div className="branch-details">
                     <strong>{branch.name}</strong>
                     <span>{branch.region}</span>
                   </div>
-                  <BranchStatus status={branch.status} />
-                  {branch.status === "open" ? (
-                    <div className="branch-actions">
-                      <a href="tel:1535">{branch.callLabel}</a>
-                    </div>
-                  ) : null}
+                  <div className="branch-card-meta">
+                    <BranchStatus status={branch.status} />
+                    {branch.status === "open" ? (
+                      <div className="branch-actions">
+                        <a href="tel:1535">{branch.callLabel}</a>
+                      </div>
+                    ) : null}
+                  </div>
                 </article>
               ))
             ) : (

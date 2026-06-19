@@ -856,6 +856,8 @@ footer > a {
 
 .branch-list {
   display: grid;
+  grid-auto-rows: max-content;
+  align-content: start;
   gap: 8px;
   height: min(424px, calc(100dvh - 236px));
   margin-top: 10px;
@@ -864,9 +866,9 @@ footer > a {
 }
 
 .branch-list article {
-  height: 64px;
+  min-height: 64px;
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto auto;
+  grid-template-columns: auto minmax(0, 1fr) auto;
   gap: 10px;
   align-items: center;
   padding: 10px 11px;
@@ -875,12 +877,27 @@ footer > a {
   background: #fffaf1;
 }
 
-.branch-list strong,
-.branch-list span {
+.branch-pin {
+  color: var(--red);
+}
+
+.branch-details {
+  min-width: 0;
+}
+
+.branch-card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.branch-details strong,
+.branch-details span {
   display: block;
 }
 
-.branch-list span {
+.branch-details span {
   margin-top: 2px;
   color: #7b6658;
   font-size: 0.92rem;
@@ -891,11 +908,16 @@ footer > a {
 }
 
 .branch-status {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
   padding: 6px 9px;
   border-radius: 999px;
   color: var(--red);
   font-size: 0.8rem;
   font-weight: 900;
+  line-height: 1;
+  white-space: nowrap;
   background: rgba(228, 7, 45, 0.08);
 }
 
@@ -1669,21 +1691,25 @@ footer > img {
 
   .branch-list article {
     grid-template-columns: auto minmax(0, 1fr);
-    height: 68px;
-    padding: 13px;
+    min-height: 92px;
+    align-items: start;
+    gap: 8px 11px;
+    padding: 13px 14px;
   }
 
   .branch-list {
     height: min(448px, calc(100dvh - 236px));
   }
 
-  .branch-status,
-  .branch-actions {
+  .branch-card-meta {
     grid-column: 2;
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap: wrap;
   }
 
   .branch-actions {
-    flex-wrap: wrap;
+    margin-left: auto;
   }
 
   .branch-actions a,
