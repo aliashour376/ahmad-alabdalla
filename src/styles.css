@@ -1516,7 +1516,7 @@ footer > img {
       linear-gradient(90deg, rgba(19, 13, 11, 0.72), rgba(19, 13, 11, 0.08)),
       repeating-linear-gradient(106deg, rgba(255, 250, 241, 0.08) 0 1px, transparent 1px 76px),
       radial-gradient(circle at 82% 16%, rgba(245, 184, 77, 0.3), transparent 18rem),
-      url("/brand-assets/food-1.webp");
+      url("/ahmad-alabdalla/brand-assets/food-1.webp");
     background-size: cover;
     background-position: 68% 30%;
   }

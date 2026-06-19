@@ -21,12 +21,14 @@ export type Branch = {
   callLabel: string;
 };
 
+const publicAsset = (path: string) => `${import.meta.env.BASE_URL}${path}`;
+
 export const mediaAssets = {
-  logo: "/brand-assets/logo.png",
-  heroSpread: "/brand-assets/food-1.webp",
-  sandwichBoard: "/brand-assets/food-2.webp",
-  sauceDip: "/brand-assets/food-3.webp",
-  archive: "/brand-assets/archive.webp",
+  logo: publicAsset("brand-assets/logo.png"),
+  heroSpread: publicAsset("brand-assets/food-1.webp"),
+  sandwichBoard: publicAsset("brand-assets/food-2.webp"),
+  sauceDip: publicAsset("brand-assets/food-3.webp"),
+  archive: publicAsset("brand-assets/archive.webp"),
 };
 
 export const siteFacts = [

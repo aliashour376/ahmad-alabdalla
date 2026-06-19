@@ -6,7 +6,6 @@
   "scripts": {
     "dev": "vite --host 127.0.0.1",
     "build": "tsc -b && vite build",
-    "deploy:staging": "npm run build && wrangler pages deploy dist --project-name=ahmad-alabdalla --branch=staging",
     "optimize:images": "node scripts/optimize-images.mjs",
     "preview": "vite preview --host 127.0.0.1"
   },
@@ -23,8 +22,7 @@
   "devDependencies": {
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
-    "sharp": "^0.35.1",
-    "wrangler": "^4.103.0"
+    "sharp": "^0.35.1"
   },
   "overrides": {
     "esbuild": "^0.28.1"
