@@ -738,7 +738,6 @@ export function App() {
             <strong>Open daily</strong> 12 noon — 12 midnight
           </span>
           <a href="tel:1535">Call 1535</a>
-          <a href="mailto:info@ahmadalabdalla.com">info@ahmadalabdalla.com</a>
         </div>
         <button className="footer-top" type="button" onClick={() => scrollToId("fire")} aria-label="Back to top">
           <ArrowUpRight size={19} strokeWidth={1.8} />
