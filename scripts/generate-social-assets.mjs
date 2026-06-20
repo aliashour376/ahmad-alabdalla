@@ -53,47 +53,51 @@ await Promise.all([
     .toFile(path.join(publicDir, "apple-touch-icon.png")),
 ]);
 
-const logo = await sharp(logoPath).resize({ width: 410 }).png().toBuffer();
-const overlay = Buffer.from(`
+const { data: logoPixels, info: logoInfo } = await sharp(logoPath)
+  .ensureAlpha()
+  .raw()
+  .toBuffer({ resolveWithObject: true });
+
+for (let index = 0; index < logoPixels.length; index += 4) {
+  if (logoPixels[index + 3] === 0) continue;
+  logoPixels[index] = 255;
+  logoPixels[index + 1] = 244;
+  logoPixels[index + 2] = 223;
+}
+
+const socialLogo = await sharp(logoPixels, { raw: logoInfo })
+  .resize({ width: 650 })
+  .png()
+  .toBuffer();
+const socialLogoMetadata = await sharp(socialLogo).metadata();
+const socialBackground = Buffer.from(`
   <svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
     <defs>
-      <linearGradient id="shade" x1="0" y1="0" x2="1" y2="0">
-        <stop offset="0" stop-color="#130d0b" stop-opacity="1"/>
-        <stop offset="0.54" stop-color="#241715" stop-opacity="0.96"/>
-        <stop offset="0.79" stop-color="#241715" stop-opacity="0.24"/>
-        <stop offset="1" stop-color="#241715" stop-opacity="0.04"/>
-      </linearGradient>
+      <radialGradient id="red" cx="50%" cy="42%" r="78%">
+        <stop offset="0" stop-color="#ed1238"/>
+        <stop offset="0.68" stop-color="#e4072d"/>
+        <stop offset="1" stop-color="#bd061f"/>
+      </radialGradient>
     </defs>
-    <rect width="1200" height="630" fill="url(#shade)"/>
-    <rect x="58" y="48" width="452" height="226" rx="18" fill="#fffaf1"/>
-    <rect x="58" y="310" width="88" height="8" rx="4" fill="#e4072d"/>
-    <text x="58" y="382" fill="#fff4df" font-family="Arial, sans-serif" font-size="50" font-weight="800">
-      LEBANON'S CHARCOAL
-    </text>
-    <text x="58" y="441" fill="#fff4df" font-family="Arial, sans-serif" font-size="50" font-weight="800">
-      CHICKEN.
-    </text>
-    <text x="58" y="505" fill="#f5b84d" font-family="Arial, sans-serif" font-size="29" font-weight="700">
-      Fired since 1987 · Order 1535
-    </text>
-    <text x="58" y="564" fill="#fff4df" fill-opacity="0.7" font-family="Arial, sans-serif" font-size="20" font-weight="700" letter-spacing="3">
-      AHMAD AL ABDALLA · LEBANON
-    </text>
+    <rect width="1200" height="630" fill="url(#red)"/>
   </svg>
 `);
 
-const socialPreview = await sharp(path.join(assetsDir, "food-1.webp"))
-  .resize(1200, 630, { fit: "cover", position: "centre" })
+const socialPreview = await sharp(socialBackground)
   .composite([
-    { input: overlay, top: 0, left: 0 },
-    { input: logo, top: 60, left: 78 },
+    {
+      input: socialLogo,
+      left: Math.round((1200 - (socialLogoMetadata.width ?? 650)) / 2),
+      top: Math.round((630 - (socialLogoMetadata.height ?? 0)) / 2),
+    },
   ])
-  .jpeg({ quality: 90, chromaSubsampling: "4:4:4", progressive: true })
+  .jpeg({ quality: 94, chromaSubsampling: "4:4:4", progressive: true })
   .toBuffer();
 
 await Promise.all([
   sharp(socialPreview).toFile(path.join(publicDir, "og-image.jpg")),
   sharp(socialPreview).toFile(path.join(publicDir, "social-preview-1200x630.jpg")),
+  sharp(socialPreview).toFile(path.join(publicDir, "social-preview-minimal-red-1200x630.jpg")),
 ]);
 
 console.log("Generated favicon set, Apple touch icon, and social preview images.");

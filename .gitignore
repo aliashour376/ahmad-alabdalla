@@ -5,3 +5,5 @@ dist
 .DS_Store
 .codex/
 .codex-*.mjs
+.baoyu-skills/
+cover-image/
